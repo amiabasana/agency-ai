@@ -5,14 +5,14 @@ import toast from "react-hot-toast";
 import { motion } from "motion/react";
 
 const ContactUs = () => {
-  const [result, setResult] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    setResult("Sending...");
+    setIsSubmitting(true);
     const formData = new FormData(event.target);
 
-    formData.append("access_key", "8d7d3e04-b67d-4891-ac96-6fd8d54420ac");
+    formData.append("access_key", import.meta.env.VITE_WEB3FORM_KEY);
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -29,6 +29,8 @@ const ContactUs = () => {
       }
     } catch (error) {
       toast.error(error.message);
+    }finally{
+      setIsSubmitting(false);
     }
   };
   return (
@@ -94,9 +96,11 @@ const ContactUs = () => {
 
         <button
           type="submit"
-          className="w-max flex gap-2 bg-primary text-white text-sm px-10 py-3 rounded-full cursor-pointer hover:scale-103 transition-all"
+          disabled={isSubmitting}
+          className={`w-max flex gap-2 bg-primary text-white text-sm px-10 py-3 rounded-full cursor-pointer hover:scale-103 transition-all ${isSubmitting ? "opacity-60 cursor-not-allowed" : "hover:scale-103"}`}
         >
-          Submit <img src={assets.arrow_icon} alt="icon" className="w-4" />
+          {isSubmitting ? "Sending" : "Submit"}
+          <img src={assets.arrow_icon} alt="icon" className="w-4" />
         </button>
       </motion.form>
     </motion.div>

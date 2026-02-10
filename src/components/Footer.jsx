@@ -84,7 +84,7 @@ const Footer = ({ theme }) => {
         viewport={{ once: true }}
         className="pb-6 text-sm text-gray-500 flex justify-center sm:justify-between gap-4 flex-wrap"
       >
-        <p>Copyright 2025 © agency.ai - All Right Reserved.</p>
+        <p>Copyright {new Date().getFullYear()} © agency.ai - All Right Reserved.</p>
         <div className="flex items-center gap-4 justify-between">
           <img src={assets.facebook_icon} alt="icon" />
           <img src={assets.twitter_icon} alt="icon" />
